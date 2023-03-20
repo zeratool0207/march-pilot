@@ -8,7 +8,7 @@ function Login() {
 
     // useState 세팅
     const [ enteredId, setEnteredId ] = useState('');
-    const [ idValid, setIdValid ] = useState(false);
+    const [ idValid, setIdValid ] = useState(false); 
 
     const [ enteredPw, setEnteredPw ] = useState('');
     const [ pwValid, setPwValid ] = useState(false); 
