@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import '../../css/login.css';
 
@@ -15,13 +16,16 @@ function Login() {
 
     const [ btnIsValid, setBtnIsValid ] = useState(false);
 
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+
     const navigate = useNavigate();
 
     const idRef = useRef();
     const pwRef = useRef();
 
     const onKeyPress = (e) => {
-        if( e.key == 'Enter' ) {
+        if( enteredId !== '' && e.key == 'Enter' ) {
             pwRef.current.focus();
         }
     }
@@ -77,7 +81,21 @@ function Login() {
         idRef.current.focus();
     }
 
-    const newPasswordTest = () => {
+    const btnGo = async () => {
+        try {
+            const response = await axios.get(
+                'https://meal-order-4edb9-default-rtdb.firebaseio.com/meals.json'
+            );
+            setData(response.data);
+            console.log(response.data);
+        } catch (e) {
+            setError(e);
+        }
+    }
+
+
+
+    const newPasswordTest = async () => {
         if ( enteredId === '' || enteredPw === '' ) {
             alert('아이디와 비밀번호를 입력해주세요');
             init();
@@ -96,7 +114,18 @@ function Login() {
             return;
         }
 
-        navigate('/countup');
+        try {
+            const response = await axios.get(
+                'https://march-pilot-default-rtdb.firebaseio.com/users.json'
+                //'https://meal-order-4edb9-default-rtdb.firebaseio.com/meals.json'
+            );
+            setData(response.data);
+        } catch (e) {
+            setError(e);
+        }
+
+        // console.log( typeof data );
+        navigate('/main');
        
     }
 
@@ -104,13 +133,13 @@ function Login() {
     <div className="main">  	
         <input type="checkbox" id="chk" aria-hidden="true" />
         <div className="signup">
-            <form>
+            {/* <form> */}
                 <label htmlFor="chk" aria-hidden="true">Sign up</label>
                 <input type="text" name="txt" placeholder="User name" required="" />
                 <input type="email" name="email" placeholder="Email" required="" />
                 <input type="password" name="pswd" placeholder="Password" required="" />
                 <button>Sign up</button>
-            </form>
+            {/* </form> */}
         </div>
 
         <div className="login">
@@ -121,6 +150,7 @@ function Login() {
                     ref={idRef} 
                     name="enteredId" 
                     value = { enteredId }
+                    onKeyPress = {onKeyPress}
                     onChange={ (e) => setEnteredId(e.target.value) }
                     maxLength={10}
                     placeholder="아이디입력" 
@@ -133,7 +163,6 @@ function Login() {
                     placeholder="비밀번호입력" 
                     onChange={ (e) => setEnteredPw(e.target.value) }
                     maxLength={16}
-                    onKeyPress={onKeyPress}
                 />
                 {/* <button>Login</button> */}
                 {
