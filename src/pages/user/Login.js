@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import '../../css/login.css';
+import { useSelector } from 'react-redux';
 
 
 function Login() {
+
+    const test = useSelector(state => state.counter);
 
     // useState 세팅
     const [ enteredId, setEnteredId ] = useState('');

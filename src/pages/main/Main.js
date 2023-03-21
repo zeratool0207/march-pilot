@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
+import { useSelector } from 'react-redux';
+
 
 const Main = () => {
+
+  const test = useSelector(state => state.counter);
 
   let start = 0;
   const [ account, setAccount ] = useState({});
@@ -53,6 +57,7 @@ const Main = () => {
         <div>{account.accNum}</div>
         <div>{account.name}</div>
         <div>{account.status}</div>
+        <div>{test}</div>
         <div>{value} 원</div>
       </div>
     </>
