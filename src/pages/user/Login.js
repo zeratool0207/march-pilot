@@ -5,6 +5,20 @@ import axios from "axios";
 import "../../css/login.css";
 import { useSelector } from "react-redux";
 import MainLanding from "../../components/MainLanding";
+import styled from "styled-components";
+
+const LoginStyle = styled.div`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: "nskr", -apple-system, "droid sans fallback",
+    "Apple SD Gothic Neo", "AppleGothic", "Malgun Gothic", "맑은 고딕", Dotum,
+    "돋움", sans-serif;
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+`;
 
 function Login() {
   const test = useSelector((state) => state.counter);
@@ -130,46 +144,53 @@ function Login() {
   };
 
   return (
-    <div className="main">
-      <MainLanding />
+    <>
+      <LoginStyle>
+        <div className="main">
+          <MainLanding />
 
-      <div className="login">
-        {/* <form> */}
-        <label htmlFor="chk" aria-hidden="true">
-          Login
-        </label>
-        <input
-          type="text"
-          ref={idRef}
-          name="enteredId"
-          value={enteredId}
-          onKeyPress={onKeyPress}
-          onChange={(e) => setEnteredId(e.target.value)}
-          maxLength={10}
-          placeholder="아이디입력"
-        />
-        <input
-          type="password"
-          name="enteredPw"
-          value={enteredPw}
-          ref={pwRef}
-          placeholder="비밀번호입력"
-          onChange={(e) => setEnteredPw(e.target.value)}
-          maxLength={16}
-        />
-        {/* <button>Login</button> */}
-        {btnIsValid ? (
-          <button className="button button1" onClick={newPasswordTest}>
-            로그인
-          </button>
-        ) : (
-          <button className="button button2" onClick={() => alert("테스트")}>
-            로그인
-          </button>
-        )}
-        {/* </form> */}
-      </div>
-    </div>
+          <div className="login">
+            {/* <form> */}
+            <label htmlFor="chk" aria-hidden="true">
+              Login
+            </label>
+            <input
+              type="text"
+              ref={idRef}
+              name="enteredId"
+              value={enteredId}
+              onKeyPress={onKeyPress}
+              onChange={(e) => setEnteredId(e.target.value)}
+              maxLength={10}
+              placeholder="아이디입력"
+            />
+            <input
+              type="password"
+              name="enteredPw"
+              value={enteredPw}
+              ref={pwRef}
+              placeholder="비밀번호입력"
+              onChange={(e) => setEnteredPw(e.target.value)}
+              maxLength={16}
+            />
+            {/* <button>Login</button> */}
+            {btnIsValid ? (
+              <button className="button button1" onClick={newPasswordTest}>
+                로그인
+              </button>
+            ) : (
+              <button
+                className="button button2"
+                onClick={() => alert("테스트")}
+              >
+                로그인
+              </button>
+            )}
+            {/* </form> */}
+          </div>
+        </div>
+      </LoginStyle>
+    </>
   );
 }
 
