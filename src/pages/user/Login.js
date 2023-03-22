@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 
 import "../../css/login.css";
-import { useSelector } from "react-redux";
 import MainLanding from "../../components/MainLanding";
 import styled from "styled-components";
+import { universalActions } from "../../store";
 
 const LoginStyle = styled.div`
   margin: 0;
@@ -21,7 +22,12 @@ const LoginStyle = styled.div`
 `;
 
 function Login() {
-  const test = useSelector((state) => state.counter);
+
+  const dispatch = useDispatch();
+
+  const value1 = useSelector((state) => state.value1);
+  const value2 = useSelector((state) => state.value2);
+  const value3 = useSelector((state) => state.value3);
 
   // useState 세팅
   const [enteredId, setEnteredId] = useState("");
@@ -143,6 +149,12 @@ function Login() {
     navigate("/main");
   };
 
+  const dummy = ['12asdf45g6dcsa3!@','4ATTTgg!@52TAWE','1212GGG!!ZZg'];
+
+  const btnTest = () => {
+    dispatch(universalActions.save(dummy))
+  }
+
   return (
     <>
       <LoginStyle>
@@ -173,7 +185,12 @@ function Login() {
               onChange={(e) => setEnteredPw(e.target.value)}
               maxLength={16}
             />
-            {/* <button>Login</button> */}
+            <button
+              onClick={btnTest}
+            >test</button>
+
+            <h4>{ value1 }, {value2 }, {value3}</h4>
+
             {btnIsValid ? (
               <button className="button button1" onClick={newPasswordTest}>
                 로그인

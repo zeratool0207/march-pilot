@@ -3,9 +3,13 @@ import axios from "axios";
 
 import { useSelector } from "react-redux";
 import MainAppBar from "../../components/MainAppBar";
+import { universalActions } from "../../store";
 
 const Main = () => {
-  const test = useSelector((state) => state.counter);
+  const value1 = useSelector((state) => state.value1);
+  const value2 = useSelector((state) => state.value2);
+  const value3 = useSelector((state) => state.value3);
+
 
   let start = 0;
   const [account, setAccount] = useState({});
@@ -61,7 +65,11 @@ const Main = () => {
         <div>{account.accNum}</div>
         <div>{account.name}</div>
         <div>{account.status}</div>
-        <div>{test}</div>
+
+        <div>{value1}</div>
+        <div>{value2}</div>
+        <div>{value3}</div>
+        
         <div>{value} 원</div>
       </div>
     </>
